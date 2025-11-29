@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gvoice-playground
+  namespace: playground
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gvoice-playground
+  template:
+    metadata:
+      labels:
+        app: gvoice-playground
+    spec:
+      containers:
+        - name: gvoice-playground
+          image: gvoicecontainerregistery.azurecr.io/gvoice-demo-playground:latest # ❗ Fixed space after colon
+          ports:
+            - containerPort: 3000
+          env:
+            - name: LIVEKIT_URL
+              value: 'wss://multi-model-testing-px7oa3yv.livekit.cloud'
+            - name: LIVEKIT_API_KEY
+              value: 'APIizuNPFQftCpv'
+            - name: LIVEKIT_API_SECRET
+              value: '7TWdOeleD5YvHuDSNHYh2gH4A6QPwmH0VOS9SR6489D'
+      imagePullSecrets:
+        - name: gvoice-secret
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: gvoice-playground-service
+  namespace: playground
+spec:
+  selector:
+    app: gvoice-playground
+  ports:
+    - port: 443
+      targetPort: 3000
