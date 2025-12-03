@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { AccessToken, type AccessTokenOptions, type VideoGrant } from 'livekit-server-sdk';
 import { RoomAgentDispatch, RoomConfiguration } from '@livekit/protocol';
-
+import { getMetadataByScenario } from "./data";
 // interface FormValues {
 //   apiKey?: string;
 //   apiName?: string;
@@ -139,43 +139,45 @@ function createParticipantToken(
   userplaygrounddata: UserPlaygroundData
 ) {
   console.log("***********************************")
+  console.log(getMetadataByScenario("benefit_by_cpt"))
   const at = new AccessToken(API_KEY, API_SECRET, {
     ...userInfo,
     ttl: '15m',
-    metadata: JSON.stringify({
-      "scenario": "claim_status_verification",
-      "data":
-      {
-        'others': {
-          'AR Notes': 'Need to check claim status',
-          'AR Status': 'Calling required',
-          'Calling Notes': "",
-          'Sno': 1
-        },
-        'patient_details': {
-          'DOB': '04/03/1939',
-          'Insured Name': "",
-          'Patient Address': "",
-          'Patient Full Name': 'Anthony, Mark'
-        },
-        'payer_details': { 'Payer Name': 'AETNA', 'Payer Phone Number': '888-632-3862' },
-        'provider_details': {
-          'Billing Provider NPI': 1234567890,
-          'Billing Provider Name': 'XYN Clinic',
-          'Billing Provider Tax ID': 123456789,
-          'Fax Number': '844-832-5814',
-          'Medicaid PIN': 12345678,
-          'Medicare PTAN': 'NERR723',
-          'Pay to Address': '1556 Park Ave, Austin TX 77586',
-          'Phone Number': '713-344-1133',
-          'Physical Address': '1556 Park Ave, Austin TX 77586',
-          'Practice State': 'Texas',
-          'RR Medicare PTAN': 'NH6234',
-          'Rendering Provider NPI': 1234567890,
-          'Rendering Provider Name': 'Dr Kelly Wilson'
-        }
-      }
-    }),
+    metadata: JSON.stringify(getMetadataByScenario("benefit_by_cpt"))
+    // metadata: JSON.stringify({
+    //   "scenario": "benefit_by_cpt",
+    //   "data":
+    //   {
+    //     'others': {
+    //       'AR Notes': 'Need to check claim status',
+    //       'AR Status': 'Calling required',
+    //       'Calling Notes': "",
+    //       'Sno': 1
+    //     },
+    //     'patient_details': {
+    //       'DOB': '04/03/1939',
+    //       'Insured Name': "",
+    //       'Patient Address': "",
+    //       'Patient Full Name': 'Anthony, Mark'
+    //     },
+    //     'payer_details': { 'Payer Name': 'AETNA', 'Payer Phone Number': '888-632-3862' },
+    //     'provider_details': {
+    //       'Billing Provider NPI': 1234567890,
+    //       'Billing Provider Name': 'XYN Clinic',
+    //       'Billing Provider Tax ID': 123456789,
+    //       'Fax Number': '844-832-5814',
+    //       'Medicaid PIN': 12345678,
+    //       'Medicare PTAN': 'NERR723',
+    //       'Pay to Address': '1556 Park Ave, Austin TX 77586',
+    //       'Phone Number': '713-344-1133',
+    //       'Physical Address': '1556 Park Ave, Austin TX 77586',
+    //       'Practice State': 'Texas',
+    //       'RR Medicare PTAN': 'NH6234',
+    //       'Rendering Provider NPI': 1234567890,
+    //       'Rendering Provider Name': 'Dr Kelly Wilson'
+    //     }
+    //   }
+    // }),
   });
   const grant: VideoGrant = {
     room: roomName,
