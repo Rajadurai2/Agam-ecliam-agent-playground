@@ -143,7 +143,7 @@ function createParticipantToken(
   const at = new AccessToken(API_KEY, API_SECRET, {
     ...userInfo,
     ttl: '15m',
-    metadata: JSON.stringify(getMetadataByScenario("benefit_by_cpt"))
+    metadata: JSON.stringify(getMetadataByScenario("claim_status_verification"))
     // metadata: JSON.stringify({
     //   "scenario": "benefit_by_cpt",
     //   "data":
