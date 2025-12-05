@@ -52,8 +52,8 @@ const scenarioMetadata: Record<string, Metadata> = {
             },
             patient_details: {
                 "Member ID": 123456789,
-                "Patient Full Name": "Anthony, Mark",
-                DOB: "04/03/1939",
+                "Patient Full Name": "Dilip Sekar",
+                "DOB": "04/03/1939",
                 "Patient Address": NaN,
                 "Insured Name": NaN
             },
@@ -86,10 +86,10 @@ const scenarioMetadata: Record<string, Metadata> = {
                 Sno: 1
             },
             patient_details: {
-                DOB: "04/03/1939",
+                "DOB": "04/03/1939",
                 "Insured Name": "",
                 "Patient Address": "",
-                "Patient Full Name": "Anthony, Mark"
+                "Patient Full Name": "Dilip Sekar"
             },
             payer_details: {
                 "Payer Name": "AETNA",
