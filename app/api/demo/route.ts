@@ -139,7 +139,7 @@ function createParticipantToken(
   userplaygrounddata: UserPlaygroundData
 ) {
   console.log("***********************************")
-  console.log(getMetadataByScenario("benefit_by_cpt"))
+  console.log(getMetadataByScenario("claim_status_verification"))
   const at = new AccessToken(API_KEY, API_SECRET, {
     ...userInfo,
     ttl: '15m',
