@@ -41,9 +41,14 @@ export const SessionView = ({
       className={
         // prevent page scrollbar
         // when !chatOpen due to 'translate-y-20'
-        cn(!chatOpen && 'max-h-svh overflow-hidden')
+        cn(
+          !chatOpen && 'max-h-svh overflow-hidden',
+          'bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 relative text-white'
+        )
       }
     >
+      {/* Subtle grid pattern overlay */}
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#1e293b_1px,transparent_1px),linear-gradient(to_bottom,#1e293b_1px,transparent_1px)] bg-[size:4rem_4rem] opacity-20 pointer-events-none" />
       <ChatMessageView
         messages={messages}
         className={cn(
@@ -68,14 +73,14 @@ export const SessionView = ({
         </div>
       </ChatMessageView>
 
-      <div className="bg-background mp-12 fixed top-0 right-0 left-0 h-32 md:h-36">
+      <div className="fixed top-0 right-0 left-0 h-32 md:h-36 pointer-events-none z-10">
         {/* skrim */}
-        <div className="from-background absolute bottom-0 left-0 h-12 w-full translate-y-full bg-gradient-to-b to-transparent" />
+        <div className="absolute top-0 left-0 h-full w-full bg-gradient-to-b from-slate-950 to-transparent" />
       </div>
 
       <MediaTiles chatOpen={chatOpen} />
 
-      <div className="bg-background fixed right-0 bottom-0 left-0 z-50 px-3 pt-2 pb-3 md:px-12 md:pb-12">
+      <div className="fixed right-0 bottom-0 left-0 z-50 px-3 pt-2 pb-3 md:px-12 md:pb-12 pointer-events-none">
         <motion.div
           key="control-bar"
           initial={{ opacity: 0, translateY: '100%' }}
@@ -102,7 +107,7 @@ export const SessionView = ({
                 sessionStarted && messages.length === 0 && 'pointer-events-none'
               )}
             >
-              <p className="animate-text-shimmer inline-block !bg-clip-text text-sm font-semibold text-transparent">
+              <p className="animate-text-shimmer inline-block !bg-clip-text text-sm font-semibold text-transparent bg-gradient-to-r from-slate-400 via-white to-slate-400">
                 Agent is listening, ask it a question
               </p>
             </motion.div>
@@ -111,10 +116,11 @@ export const SessionView = ({
               capabilities={capabilities}
               onChatOpenChange={setChatOpen}
               onSendMessage={handleSendMessage}
+              className="pointer-events-auto rounded-2xl border border-slate-800 bg-slate-900/50 p-4 shadow-2xl backdrop-blur-sm"
             />
           </div>
           {/* skrim */}
-          <div className="from-background border-background absolute top-0 left-0 h-12 w-full -translate-y-full bg-gradient-to-t to-transparent" />
+          <div className="absolute bottom-0 left-0 h-32 w-full bg-gradient-to-t from-slate-950 to-transparent -z-10" />
         </motion.div>
       </div>
     </main>

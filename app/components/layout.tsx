@@ -6,11 +6,11 @@ import { usePathname } from 'next/navigation';
 import { Room } from 'livekit-client';
 import { RoomContext } from '@livekit/components-react';
 import { toastAlert } from '@/components/alert-toast';
-import useConnectionDetails from '@/hooks/useConnectionDetails';
+import usedemoDetails from '@/hooks/useDemoDetails';
 import { cn } from '@/lib/utils';
 
 export default function ComponentsLayout({ children }: { children: React.ReactNode }) {
-  const { connectionDetails } = useConnectionDetails();
+  const { demoDetails: connectionDetails } = usedemoDetails();
 
   const pathname = usePathname();
   const room = React.useMemo(() => new Room(), []);
