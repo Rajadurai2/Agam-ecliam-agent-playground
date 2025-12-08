@@ -85,8 +85,8 @@ export function App({ appConfig }: AppProps) {
     };
   }, [room, sessionStarted, demoDetails]);
 
-  async function handlestart() {
-    await refreshdemoDetails(); // wait for it to fetch new details
+  async function handlestart(scenario: string) {
+    await refreshdemoDetails(scenario); // wait for it to fetch new details
     setSessionStarted(true);
   }
   //   try {

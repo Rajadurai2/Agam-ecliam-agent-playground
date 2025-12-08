@@ -13,17 +13,20 @@ export default function usedemoDetails() {
 
   const [demoDetails, setdemoDetails] = useState<demoDetails | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const fetchdemoDetails = useCallback(() => {
+  const fetchdemoDetails = useCallback((scenario?: string) => {
     setdemoDetails(null);
     const url = new URL(
       process.env.NEXT_PUBLIC_CONN_DETAILS_ENDPOINT ?? '/api/demo',
       window.location.origin
     );
+    if (scenario) {
+      url.searchParams.append('scenario', scenario);
+    }
     fetch(url.toString())
       .then((res) => res.json())
       .then((data) => {
         setdemoDetails(data);
-        console.log(data,"==================================")
+        console.log(data, "==================================")
       })
       .catch((error) => {
         console.error('Error fetching connection details:', error);

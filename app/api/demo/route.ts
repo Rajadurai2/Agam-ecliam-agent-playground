@@ -75,7 +75,7 @@ export async function POST(req: NextRequest) {
   }
 }
 
-export async function GET() {
+export async function GET(req: NextRequest) {
   try {
     if (API_NAME === undefined || API_NAME === '') {
       throw new Error('LIVEKIT_API_NAME is not defined');
@@ -100,12 +100,16 @@ export async function GET() {
     const participantName = 'user';
     const participantIdentity = `voice_assistant_user_${Math.floor(Math.random() * 10_000)}`;
     const roomName = `voice_assistant_room_${Math.floor(Math.random() * 10_000)}`;
+    const { searchParams } = new URL(req.url);
+    const scenario = searchParams.get('scenario') || 'claim_status';
+
     const participantToken = await createParticipantToken(
       { identity: participantIdentity, name: participantName },
       roomName,
       instruction,
       agentToAgentData,
-      userplaygrounddata
+      userplaygrounddata,
+      scenario
     );
 
     // Return connection details
@@ -136,48 +140,15 @@ function createParticipantToken(
   roomName: string,
   instruction: string,
   agentToAgentData: AgentToAgentData,
-  userplaygrounddata: UserPlaygroundData
+  userplaygrounddata: UserPlaygroundData,
+  scenario: string
 ) {
-  console.log("***********************************")
-  console.log(getMetadataByScenario("claim_status_verification"))
+  console.log('Selected instruction:', instruction);
+  console.log('Selected scenario:', scenario);
   const at = new AccessToken(API_KEY, API_SECRET, {
     ...userInfo,
     ttl: '15m',
-    metadata: JSON.stringify(getMetadataByScenario("claim_status_verification"))
-    // metadata: JSON.stringify({
-    //   "scenario": "benefit_by_cpt",
-    //   "data":
-    //   {
-    //     'others': {
-    //       'AR Notes': 'Need to check claim status',
-    //       'AR Status': 'Calling required',
-    //       'Calling Notes': "",
-    //       'Sno': 1
-    //     },
-    //     'patient_details': {
-    //       'DOB': '04/03/1939',
-    //       'Insured Name': "",
-    //       'Patient Address': "",
-    //       'Patient Full Name': 'Anthony, Mark'
-    //     },
-    //     'payer_details': { 'Payer Name': 'AETNA', 'Payer Phone Number': '888-632-3862' },
-    //     'provider_details': {
-    //       'Billing Provider NPI': 1234567890,
-    //       'Billing Provider Name': 'XYN Clinic',
-    //       'Billing Provider Tax ID': 123456789,
-    //       'Fax Number': '844-832-5814',
-    //       'Medicaid PIN': 12345678,
-    //       'Medicare PTAN': 'NERR723',
-    //       'Pay to Address': '1556 Park Ave, Austin TX 77586',
-    //       'Phone Number': '713-344-1133',
-    //       'Physical Address': '1556 Park Ave, Austin TX 77586',
-    //       'Practice State': 'Texas',
-    //       'RR Medicare PTAN': 'NH6234',
-    //       'Rendering Provider NPI': 1234567890,
-    //       'Rendering Provider Name': 'Dr Kelly Wilson'
-    //     }
-    //   }
-    // }),
+    metadata: JSON.stringify(getMetadataByScenario(scenario))
   });
   const grant: VideoGrant = {
     room: roomName,
