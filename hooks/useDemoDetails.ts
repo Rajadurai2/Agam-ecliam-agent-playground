@@ -22,7 +22,7 @@ export default function usedemoDetails() {
     if (scenario) {
       url.searchParams.append('scenario', scenario);
     }
-    fetch(url.toString())
+    return fetch(url.toString())
       .then((res) => res.json())
       .then((data) => {
         setdemoDetails(data);

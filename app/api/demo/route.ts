@@ -101,6 +101,7 @@ export async function GET(req: NextRequest) {
     const participantIdentity = `voice_assistant_user_${Math.floor(Math.random() * 10_000)}`;
     const roomName = `voice_assistant_room_${Math.floor(Math.random() * 10_000)}`;
     const { searchParams } = new URL(req.url);
+    console.log('Search Params:', searchParams);
     const scenario = searchParams.get('scenario') || 'claim_status';
 
     const participantToken = await createParticipantToken(
@@ -145,6 +146,7 @@ function createParticipantToken(
 ) {
   console.log('Selected instruction:', instruction);
   console.log('Selected scenario:', scenario);
+  console.log('Selected data:', getMetadataByScenario(scenario));
   const at = new AccessToken(API_KEY, API_SECRET, {
     ...userInfo,
     ttl: '15m',

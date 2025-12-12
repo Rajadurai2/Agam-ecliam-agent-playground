@@ -55,10 +55,10 @@ export default function StartPage({
               <SelectItem value="claim_status_verification" className="text-white focus:bg-slate-700 focus:text-white">
                 Claim Status Inquiry
               </SelectItem>
-              <SelectItem value="general_benefit_verification" className="text-white focus:bg-slate-700 focus:text-white">
+              <SelectItem value="benefit_verification" className="text-white focus:bg-slate-700 focus:text-white">
                 Benefit Verification
               </SelectItem>
-              <SelectItem value="pharmacy_benefit_verification" className="text-white focus:bg-slate-700 focus:text-white">
+              <SelectItem value="pharmacy_verification" className="text-white focus:bg-slate-700 focus:text-white">
                 Pharmacy Verification
               </SelectItem>
               <SelectItem value="benefit_by_cpt" className="text-white focus:bg-slate-700 focus:text-white">
