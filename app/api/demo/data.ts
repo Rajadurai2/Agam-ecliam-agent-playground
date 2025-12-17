@@ -25,7 +25,7 @@ const scenarioMetadata: Record<string, Metadata> = {
     // 1. CLAIM STATUS SCENARIO
     // ======================================================
     benefit_by_cpt: {
-        scenario: "benefit_by_cpt",
+        scenario: "cpt_code_benefit_verification",
         data: sanitize({
             provider_details: {
                 "Billing Provider Name": "XYN Clinic",
@@ -89,7 +89,9 @@ const scenarioMetadata: Record<string, Metadata> = {
                 "DOB": "04/03/1939",
                 "Insured Name": "",
                 "Patient Address": "",
-                "Patient Full Name": "Dilip Sekar"
+                "Patient Full Name": "Dilip Sekar",
+                "From DOS": "05/14/2024",
+                "To DOS": "5/14/2025"
             },
             payer_details: {
                 "Payer Name": "AETNA",
